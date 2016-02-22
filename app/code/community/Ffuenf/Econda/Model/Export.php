@@ -40,8 +40,6 @@ class Ffuenf_Econda_Model_Export
     const EXPORT_SEPARATOR              = '|';
     const CATEGORIES_SEPARATOR          = '^^';
 
-    protected $report = array();
-
     public function isAllowedIp($storeId)
     {
         if (!Mage::getStoreConfig(self::XML_PATH_EXTENSION_RESTRICTBYIP, $storeId)) {
@@ -58,14 +56,14 @@ class Ffuenf_Econda_Model_Export
         if (!Mage::helper('ffuenf_econda')->isExtensionActive()) {
             return;
         }
+        $report = array();
         $report['getProductsCsv']['start']['time'] = microtime(true);
         $report['getProductsCsv']['start']['memory'] = memory_get_usage(true);
         $storeId = $store;
         $products = Mage::getResourceModel('catalog/product_collection');
         Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($products);
         $products->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED));
-        $types = array();
-        $types = implode(',', Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_TYPEIDS, $store));
+        $types = explode(',', Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_TYPEIDS, $store));
         foreach ($types as $type) {
             $products->addAttributeToFilter('type_id', array('eq' => $type));
         }
@@ -112,7 +110,7 @@ class Ffuenf_Econda_Model_Export
         $collection = Mage::getModel('catalog/category')->getCollection()->setStoreId($storeId);
         $catIds = $collection->getAllIds();
         $cat = Mage::getModel('catalog/category');
-        $csv .= "ID|ParentID|Name\n";
+        $csv = "ID|ParentID|Name\n";
         foreach ($catIds as $catId) {
             $category = $cat->load($catId);
             if ($category->getLevel() != 0) {
@@ -144,7 +142,7 @@ class Ffuenf_Econda_Model_Export
         if (!Mage::helper('ffuenf_econda')->isExtensionActive()) {
             return;
         }
-        $csv .= "ID|Name|Code|isActive|homeUrl\n";
+        $csv = "ID|Name|Code|isActive|homeUrl\n";
         $allStores = Mage::app()->getStores();
         foreach ($allStores as $eachStoreId => $val) {
             $storeCode = Mage::app()->getStore($eachStoreId)->getCode();
@@ -193,10 +191,9 @@ class Ffuenf_Econda_Model_Export
         } else {
             $parentProduct = $product;
         }
-        $csv .= "";
-        $csv .= trim($this->_getProductId($product, $store)) . self::EXPORT_SEPARATOR;
+        $csv = trim($this->_getProductId($product, $store)) . self::EXPORT_SEPARATOR;
         $csv .= trim($this->_getProductName((self::XML_PATH_EXTENSION_PRODUCTS_NAME_USEPARENT ? $parentProduct : $product))) . self::EXPORT_SEPARATOR;
-        $csv .= trim($this->_getProductDescription((self::XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_USEPARENT ? $parentProduct : $product))) . self::EXPORT_SEPARATOR;
+        $csv .= trim($this->_getProductDescription((self::XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_USEPARENT ? $parentProduct : $product), $store)) . self::EXPORT_SEPARATOR;
         if (self::XML_PATH_EXTENSION_PRODUCTS_URL_USEPARENT) {
             $csv .= trim($parentProduct->getProductUrl()) . self::EXPORT_SEPARATOR;
         } else {
@@ -235,13 +232,13 @@ class Ffuenf_Econda_Model_Export
 
     protected function _getProductName($product)
     {
-        $product_name = $product->getName();
-        $product_name = str_replace("\n", "", strip_tags($product_name));
-        $product_name = str_replace("\r", "", strip_tags($product_name));
-        $product_name = str_replace("\t", " ", strip_tags($product_name));
-        $product_name = str_replace(self::EXPORT_SEPARATOR, "/", strip_tags($product_name));
+        $productName = $product->getName();
+        $productName = str_replace("\n", "", strip_tags($productName));
+        $productName = str_replace("\r", "", strip_tags($productName));
+        $productName = str_replace("\t", " ", strip_tags($productName));
+        $productName = str_replace(self::EXPORT_SEPARATOR, "/", strip_tags($productName));
         
-        return $product_name;
+        return $productName;
     }
 
     /**
@@ -251,12 +248,12 @@ class Ffuenf_Econda_Model_Export
     {
         $idType = Mage::getStoreConfig('recommendationexp/recommendationexp_settings/recommendationexp_productid', $store);
         if ($idType == '1') {
-            $product_id = $product->getSku();
+            $productId = $product->getSku();
         } else {
-            $product_id = $product->getId();
+            $productId = $product->getId();
         }
         
-        return $product_id;
+        return $productId;
     }
 
     protected function _getProductPrice($product)
@@ -272,7 +269,6 @@ class Ffuenf_Econda_Model_Export
 
     protected function _getProductPriceOld($product)
     {
-        $taxHelper = Mage::helper('tax');
         $price = $product->getPrice();
         
         return $this->_formatPrice($product, $price);
@@ -298,17 +294,16 @@ class Ffuenf_Econda_Model_Export
         if ($product->getResource()->getAttribute('manufacturer')) {
             $manufacturer = $product->getResource()->getAttribute('manufacturer')->getFrontend()->getValue($product);
             if (strtolower($manufacturer) == "no" || strtolower($manufacturer) == "nein") {
-                $manufacturer = "";
-                return $manufacturer;
+                return "";
             } else {
                 return $manufacturer;
             }
         } else {
-            return $manufacturer = "";
+            return "";
         }
     }
 
-    protected function _getProductDescription($product)
+    protected function _getProductDescription($product, $store)
     {
         $descriptionType = Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_TYPE, $store);
         $description = strip_tags($product->getData($descriptionType));
