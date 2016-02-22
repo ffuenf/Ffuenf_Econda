@@ -116,7 +116,7 @@ class Ffuenf_Econda_Model_Export
         foreach ($catIds as $catId) {
             $category = $cat->load($catId);
             if ($category->getLevel() != 0) {
-                $catPath = explode('/',$category->getPath());
+                $catPath = explode('/', $category->getPath());
                 $catParent = $catPath[sizeof($catPath) - 2];
                 if ($catParent != '' || $category->getId() == $catRoot) {
                     $csv .= $category->getId() . self::EXPORT_SEPARATOR;
@@ -244,6 +244,9 @@ class Ffuenf_Econda_Model_Export
         return $product_name;
     }
 
+    /**
+     * @return string
+     */
     protected function _getProductId($product, $store)
     {
         $idType = Mage::getStoreConfig('recommendationexp/recommendationexp_settings/recommendationexp_productid', $store);
@@ -258,7 +261,7 @@ class Ffuenf_Econda_Model_Export
 
     protected function _getProductPrice($product)
     {
-        if ($product->getSpecialPrice() && (date("Y-m-d G:i:s") > $product->getSpecialFromDate() || !$product->getSpecialFromDate()) &&  (date("Y-m-d G:i:s") < $product->getSpecialToDate() || !$product->getSpecialToDate())) {
+        if ($product->getSpecialPrice() && (date("Y-m-d G:i:s") > $product->getSpecialFromDate() || !$product->getSpecialFromDate()) && (date("Y-m-d G:i:s") < $product->getSpecialToDate() || !$product->getSpecialToDate())) {
             $price = $product->getSpecialPrice();
         } else {
             $price = $product->getPrice();
@@ -287,6 +290,9 @@ class Ffuenf_Econda_Model_Export
         return '0';
     }
 
+    /**
+     * @return string
+     */
     protected function _getProductBrand($product)
     {
         if ($product->getResource()->getAttribute('manufacturer')) {
@@ -314,7 +320,7 @@ class Ffuenf_Econda_Model_Export
     
     protected function _formatPrice($product, $price)
     {
-        $taxHelper  = Mage::helper('tax');
+        $taxHelper = Mage::helper('tax');
         $price = $taxHelper->getPrice($product, $price, true);
         $price = number_format($price, '2');
         
