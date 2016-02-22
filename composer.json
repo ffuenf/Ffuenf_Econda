@@ -1,0 +1,33 @@
+{
+  "name": "Ffuenf/Ffuenf_Econda",
+  "license": "MIT",
+  "description": "This is a extension for Magento Community Edition for exporting stores, categories and products to the Econda Recommendation Service.",
+  "authors": [
+    {
+      "name": "Achim Rosenhagen",
+      "email": "a.rosenhagen@ffuenf.de"
+    }
+  ],
+  "type": "magento-module",
+  "require": {
+    "Ffuenf/Ffuenf_Common": "*",
+    "Ffuenf/Ffuenf_MageTrashApp": "*"
+  },
+  "require-dev": {
+    "aoepeople/composer-installers": "*"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://packages.firegento.com"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/ffuenf/Ffuenf_Common"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/ffuenf/Ffuenf_MageTrashApp"
+    }
+  ]
+}

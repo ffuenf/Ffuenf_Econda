@@ -1,0 +1,2 @@
+app/code/community/Ffuenf/Econda
+app/etc/modules/Ffuenf_Econda.xml

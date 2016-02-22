@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ffuenf_Econda extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ffuenf
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2016 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+*/
+-->
+<config>
+    <modules>
+        <Ffuenf_Econda>
+            <version>1.0.0</version>
+        </Ffuenf_Econda>
+    </modules>
+    <global>
+        <helpers>
+            <ffuenf_econda>
+                <class>Ffuenf_Econda_Helper</class>
+            </ffuenf_econda>
+        </helpers>
+        <blocks>
+            <ffuenf_econda>
+                <class>Ffuenf_Econda_Block</class>
+            </ffuenf_econda>
+        </blocks>
+        <models>
+            <ffuenf_econda>
+                <class>Ffuenf_Econda_Model</class>
+            </ffuenf_econda>
+        </models>
+        <resources>
+            <ffuenf_econda_setup>
+                <setup>
+                    <module>Ffuenf_Econda</module>
+                </setup>
+            </ffuenf_econda_setup>
+        </resources>
+    </global>
+    <frontend>
+        <routers>
+            <econdaexport>
+                <use>standard</use>
+                <args>
+                    <module>Ffuenf_Econda</module>
+                    <frontName>econdaexport</frontName>
+                </args>
+            </econdaexport>
+        </routers>
+    </frontend>
+    <default>
+        <ffuenf_econda>
+            <general>
+                <enable>1</enable>
+                <allowed_ips></allowed_ips>
+            </general>
+        </ffuenf_econda>
+    </default>
+    <uninstall>
+        <filename>uninstall.txt</filename>
+    </uninstall>
+    <phpunit>
+        <suite>
+            <modules>
+                <Ffuenf_Econda/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

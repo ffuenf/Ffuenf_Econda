@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Ffuenf_Econda extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category   Ffuenf
+ *
+ * @author     Achim Rosenhagen <a.rosenhagen@ffuenf.de>
+ * @copyright  Copyright (c) 2016 ffuenf (http://www.ffuenf.de)
+ * @license    http://opensource.org/licenses/mit-license.php MIT License
+*/
+-->
+<config>
+    <sections>
+        <ffuenf_econda translate="label" module="ffuenf_econda">
+            <tab>ffuenf</tab>
+            <label>Econda</label>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <teaser translate="label" module="ffuenf_econda">
+                    <frontend_model>Ffuenf_Econda_Block_Adminhtml_System_Config_Fieldset_Teaser</frontend_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>1</expanded>
+                </teaser>
+                <general translate="label" module="ffuenf_econda">
+                    <label>General Configuration</label>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enable translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>
+                        <restrictbyip translate="label">
+                            <label>Restrict access by IP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </restrictbyip>
+                        <allowed_ips translate="label, comment" module="ffuenf_econda">
+                            <label>Allowed IPs (comma separated)</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <depends>
+                                <restrictbyip>1</restrictbyip>
+                            </depends>
+                        </allowed_ips>
+                    </fields>
+                </general>
+                <products translate="label" module="ffuenf_econda">
+                    <label>Product Feed Configuration</label>
+                    <sort_order>2000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <status translate="label, comment">
+                            <label>Include Products Status</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>ffuenf_econda/adminhtml_system_config_source_productstatuses</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </status>
+                        <typeids translate="label, comment">
+                            <label>Include Product Types</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>ffuenf_econda/adminhtml_system_config_source_producttypes</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </typeids>
+                        <description_type translate="label, comment">
+                            <label>Use Description Field</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ffuenf_econda/adminhtml_system_config_source_productdescription</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </description_type>
+                        <name_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>Name</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </name_useparent>
+                        <description_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>Description</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </description_useparent>
+                        <url_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>URL</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </url_useparent>
+                        <image_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>Image</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </image_useparent>
+                        <price_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>Price</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </price_useparent>
+                        <priceold_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>Old Price</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </priceold_useparent>
+                        <new_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>New</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </new_useparent>
+                        <stock_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>Stock</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </stock_useparent>
+                        <sku_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>SKU</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </sku_useparent>
+                        <brand_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>Brand</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </brand_useparent>
+                        <categories_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>Categories</b> of parent product]]></label>
+                            <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </categories_useparent>
+                    </fields>
+                </products>
+            </groups>
+        </ffuenf_econda>
+    </sections>
+</config>
