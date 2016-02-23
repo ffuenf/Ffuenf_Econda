@@ -57,7 +57,7 @@ class Ffuenf_Econda_Model_Export
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getProductsCsv($store)
     {
@@ -112,7 +112,7 @@ class Ffuenf_Econda_Model_Export
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getCategoriesCsv($store)
     {
@@ -123,7 +123,7 @@ class Ffuenf_Econda_Model_Export
         $catRoot = Mage::app()->getStore()->getRootCategoryId();
         $collection = Mage::getModel('catalog/category')
                       ->getCollection()
-                      ->addAttributeToSelect('*')
+                      ->addAttributeToSelect('id')
                       ->setStoreId($storeId);
         if (Mage::getStoreConfig(self::XML_PATH_EXTENSION_CATEGORIES_STATUS, $store)) {
             $collection->addIsActiveFilter();
@@ -158,7 +158,7 @@ class Ffuenf_Econda_Model_Export
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getStoresCsv()
     {
@@ -190,7 +190,7 @@ class Ffuenf_Econda_Model_Export
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     protected function _getProductCsv($product, $store)
     {
@@ -258,9 +258,9 @@ class Ffuenf_Econda_Model_Export
                          ->addAttributeToSelect(array('id', 'is_active'))
                          ->setStoreId($store);
             if (!Mage::getStoreConfig(self::XML_PATH_EXTENSION_CATEGORIES_STATUS, $store)) {
-                $csv .= self::CATEGORIES_SEPARATOR . $tmpId;
+                $csv .= self::CATEGORIES_SEPARATOR . $categoryId;
             } else if ($_category->getIsActive()) {
-                $csv .= self::CATEGORIES_SEPARATOR . $tmpId;
+                $csv .= self::CATEGORIES_SEPARATOR . $categoryId;
             }
         }
         

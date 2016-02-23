@@ -21,7 +21,7 @@ class Ffuenf_Econda_Model_Adminhtml_System_Config_Source_Productid
     /**
      * Options getter.
      *
-     * @return array
+     * @return array[]
      */
     public function toOptionArray()
     {
