@@ -64,6 +64,10 @@
                 <enable>1</enable>
                 <allowed_ips></allowed_ips>
             </general>
+            <products>
+                <status>1</status>
+                <typeids>simple</typeids>
+            </products>
         </ffuenf_econda>
     </default>
     <uninstall>

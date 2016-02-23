@@ -17,9 +17,13 @@ This is a extension for Magento Community Edition for exporting stores, categori
 
 This extension provides more options to the official [econda Cross Sell Extension](https://www.magentocommerce.com/magento-connect/econda-cross-sell-extension.html):
 
-* faster export of products by not loading whole product collections
-* configurable product attributes (load attributes of parent products)
+* faster collections by only loading required attributes
 * configurable IP whitelist
+* configurable product statuses (Enabled, Disabled)
+* configurable product types (simple, configurable, ...)
+* configurable product id type (ID or SKU)
+* configurable description type (short_description or description)
+* configurable product attributes (possibility to load attribute values of associated parent products)
 
 Platform
 --------
