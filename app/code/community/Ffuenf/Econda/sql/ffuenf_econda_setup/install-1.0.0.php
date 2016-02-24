@@ -55,10 +55,11 @@ $installer->addAttributeToGroup(
     '11' //last Magento's attribute position in General tab is 10
 );
 $attributeId = $installer->getAttributeId($entityTypeId, 'ffuenf_econda_feed');
-$installer->run("INSERT INTO `{$installer->getTable('catalog_category_entity_int')}`
+$installer->run(
+    "INSERT INTO `{$installer->getTable('catalog_category_entity_int')}`
     (`entity_type_id`, `attribute_id`, `entity_id`, `value`)
     SELECT '{$entityTypeId}', '{$attributeId}', `entity_id`, '1'
-    FROM `{$installer->getTable('catalog_category_entity')}`;
-");
+    FROM `{$installer->getTable('catalog_category_entity')}`;"
+);
 
 $installer->endSetup();
