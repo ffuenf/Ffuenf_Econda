@@ -18,6 +18,9 @@
 
 class Ffuenf_Econda_CategoriesController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @return string
+     */
     protected function _getCategoriesCsv($store)
     {
         return Mage::getModel('ffuenf_econda/feeds_econda_recommendations_categories')->getCategoriesCsv($store);
@@ -31,13 +34,13 @@ class Ffuenf_Econda_CategoriesController extends Mage_Core_Controller_Front_Acti
         foreach ($stores as $store => $val) {
             $storeIdShop = Mage::app()->getStore($store)->getId();
             if ($storeIdShop == $storeId) {
-                $actstore = $storeId;
+                $actStore = $storeId;
             }
         }
         
-        if (!Mage::getSingleton('ffuenf_econda/feeds')->isAllowedIp($storeId) || $actstore == null) {
+        if (!Mage::getSingleton('ffuenf_econda/feeds')->isAllowedIp($storeId) || $actStore == null) {
             return;
         }
-        echo $this->_getCategoriesCsv($actstore);
+        echo $this->_getCategoriesCsv($actStore);
     }
 }

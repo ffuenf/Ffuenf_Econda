@@ -18,6 +18,9 @@
 
 class Ffuenf_Econda_StoresController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * @return string
+     */
     protected function _getStoresCsv()
     {
         return Mage::getModel('ffuenf_econda/feeds_econda_recommendations_stores')->getStoresCsv();
@@ -31,10 +34,10 @@ class Ffuenf_Econda_StoresController extends Mage_Core_Controller_Front_Action
         foreach ($stores as $store => $val) {
             $storeIdShop = Mage::app()->getStore($store)->getId();
             if ($storeIdShop == $storeId) {
-                $actstore = $storeId;
+                $actStore = $storeId;
             }
         }
-        if (!Mage::getSingleton('ffuenf_econda/feeds')->isAllowedIp($storeId)) {
+        if (!Mage::getSingleton('ffuenf_econda/feeds')->isAllowedIp($storeId) || $actStore == null) {
             return;
         }
         echo $this->_getStoresCsv();
