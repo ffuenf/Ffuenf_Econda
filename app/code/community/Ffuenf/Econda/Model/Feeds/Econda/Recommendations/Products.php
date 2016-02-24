@@ -103,8 +103,8 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
             $parentProduct = $product;
         }
         $csv = trim($this->_getProductId($product, $store)) . self::EXPORT_SEPARATOR;
-        $csv .= trim($this->_getProductName((self::XML_PATH_EXTENSION_PRODUCTS_NAME_USEPARENT ? $parentProduct : $product))) . self::EXPORT_SEPARATOR;
-        $csv .= trim($this->_getProductDescription((self::XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_USEPARENT ? $parentProduct : $product), $store)) . self::EXPORT_SEPARATOR;
+        $csv .= '"' . trim($this->_getProductName((self::XML_PATH_EXTENSION_PRODUCTS_NAME_USEPARENT ? $parentProduct : $product))) . '"' . self::EXPORT_SEPARATOR;
+        $csv .= '"' . trim($this->_getProductDescription((self::XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_USEPARENT ? $parentProduct : $product), $store)) . '"' . self::EXPORT_SEPARATOR;
         if (self::XML_PATH_EXTENSION_PRODUCTS_URL_USEPARENT) {
             $csv .= trim($parentProduct->getProductUrl()) . self::EXPORT_SEPARATOR;
         } else {
@@ -120,11 +120,11 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
         $csv .= trim($this->_getProductNew((self::XML_PATH_EXTENSION_PRODUCTS_NEW_USEPARENT ? $parentProduct : $product))) . self::EXPORT_SEPARATOR;
         $csv .= (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct((self::XML_PATH_EXTENSION_PRODUCTS_STOCK_USEPARENT ? $parentProduct : $product))->getQty() . self::EXPORT_SEPARATOR;
         if (self::XML_PATH_EXTENSION_PRODUCTS_SKU_USEPARENT) {
-            $csv .= trim($parentProduct->getSKU()) . self::EXPORT_SEPARATOR;
+            $csv .= '"' . trim($parentProduct->getSKU()) . '"' . self::EXPORT_SEPARATOR;
         } else {
-            $csv .= trim($product->getSKU()) . self::EXPORT_SEPARATOR;
+            $csv .= '"' . trim($product->getSKU()) . '"' . self::EXPORT_SEPARATOR;
         }
-        $csv .= trim($this->_getProductBrand((self::XML_PATH_EXTENSION_PRODUCTS_BRAND_USEPARENT ? $parentProduct : $product))) . self::EXPORT_SEPARATOR;
+        $csv .= '"' . trim($this->_getProductBrand((self::XML_PATH_EXTENSION_PRODUCTS_BRAND_USEPARENT ? $parentProduct : $product))) . '"' . self::EXPORT_SEPARATOR;
         $csv .= trim($this->_getProductCategoriesCsv((self::XML_PATH_EXTENSION_PRODUCTS_CATEGORIES_USEPARENT ? $parentProduct : $product), $store));
         
         return $csv . "\n";
@@ -156,9 +156,8 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
     {
         $productName = $product->getName();
         $productName = strip_tags($productName);
-        $productName = str_replace("\n", "", $productName);
-        $productName = str_replace("\r", "", $productName);
-        $productName = str_replace("\t", " ", $productName);
+        $productName = preg_replace("/\r|\n|/s", "", $productName);
+        $productName = str_replace('"', "&quot;", $productName);
         $productName = str_replace(self::EXPORT_SEPARATOR, "/", $productName);
         
         return $productName;
@@ -239,6 +238,7 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
         $descriptionType = Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_TYPE, $store);
         $description = strip_tags($product->getData($descriptionType));
         $description = preg_replace("/\r|\n|/s", "", $description);
+        $description = str_replace('"', "&quot;", $description);
         $description = str_replace(self::EXPORT_SEPARATOR, "/", $description);
         
         return $description;
