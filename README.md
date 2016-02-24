@@ -17,9 +17,22 @@ This is a extension for Magento Community Edition for exporting stores, categori
 
 This extension provides more options to the official [econda Cross Sell Extension](https://www.magentocommerce.com/magento-connect/econda-cross-sell-extension.html):
 
-* faster export of products by not loading whole product collections
-* configurable product attributes (load attributes of parent products)
+* faster collections by only loading required attributes
 * configurable IP whitelist
+* configurable product statuses (Enabled, Disabled)
+* configurable product types (simple, configurable, ...)
+* configurable product id type (ID or SKU)
+* configurable description type (short_description or description)
+* configurable product attributes (possibility to load attribute values of associated parent products)
+* exclude specific categories entirely
+
+The extension exposes the following Endpoints to fetch the generated feeds:
+
+* `/econda_feeds/stores` (returns a stores.csv as text/csv)
+* `/econda_feeds/products?store=1` (returns a products.csv as text/csv)
+* `/econda_feeds/categories?store=1` (returns a categories.csv as text/csv)
+
+*The path `/econda_feeds` should be protected by .htaccess*
 
 Platform
 --------
@@ -37,10 +50,10 @@ Other versions are assumed to work.
 Requirements
 ------------
 
-|                                                                     | PHP 5.4        | PHP 5.5           | PHP 5.6       | PHP 7.0       |
-| ------------------------------------------------------------------- | -------------- | ----------------- | ------------- | ------------- |
-| [EOL](https://secure.php.net/supported-versions.php) / STABLE / RC  | EOL            | STABLE            | **STABLE**    | STABLE        |
-| automated tests on [travis]                                         | allow failure  | **required pass** | allow failure | allow failure |
+|                                                                     | PHP 5.4        | PHP 5.5           | PHP 5.6           | PHP 7.0           |
+| ------------------------------------------------------------------- | -------------- | ----------------- | ----------------- | ----------------- |
+| [EOL](https://secure.php.net/supported-versions.php) / STABLE / RC  | EOL            | STABLE            | **STABLE**        | **STABLE**        |
+| automated tests on [travis]                                         | allow failure  | **required pass** | **required pass** | **required pass** |
 
 Magento Community Edition officially supports PHP 5.4 and PHP 5.5.
 

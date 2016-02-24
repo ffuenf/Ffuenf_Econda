@@ -91,6 +91,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry</validate>
                         </status>
                         <typeids translate="label, comment">
                             <label>Include Product Types</label>
@@ -101,23 +102,44 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                            <validate>required-entry</validate>
                         </typeids>
-                        <description_type translate="label, comment">
-                            <label>Use Description Field</label>
-                            <comment><![CDATA[]]></comment>
+                        <id_type translate="label, comment">
+                            <label>Product ID Type</label>
+                            <comment><![CDATA[Use the Magento Item ID or SKU for Export]]></comment>
                             <frontend_type>select</frontend_type>
-                            <source_model>ffuenf_econda/adminhtml_system_config_source_productdescription</source_model>
+                            <source_model>ffuenf_econda/adminhtml_system_config_source_productid</source_model>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
+                        </id_type>
+                        <description_type translate="label, comment">
+                            <label>Product Description Type</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ffuenf_econda/adminhtml_system_config_source_productdescription</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
                         </description_type>
+                        <category_state translate="label, comment">
+                            <label>Only export active categories</label>
+                            <comment><![CDATA[]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </category_state>
                         <name_useparent translate="label, comment">
                             <label><![CDATA[Use <b>Name</b> of parent product]]></label>
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>40</sort_order>
+                            <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -127,7 +149,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>50</sort_order>
+                            <sort_order>60</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -137,7 +159,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>60</sort_order>
+                            <sort_order>70</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -147,7 +169,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>70</sort_order>
+                            <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -157,7 +179,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>80</sort_order>
+                            <sort_order>90</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -167,7 +189,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>90</sort_order>
+                            <sort_order>100</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -177,7 +199,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>100</sort_order>
+                            <sort_order>110</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -187,7 +209,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>110</sort_order>
+                            <sort_order>120</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -197,7 +219,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>120</sort_order>
+                            <sort_order>130</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -207,7 +229,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>130</sort_order>
+                            <sort_order>140</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -217,7 +239,7 @@
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>140</sort_order>
+                            <sort_order>150</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>

@@ -43,19 +43,20 @@
             <ffuenf_econda_setup>
                 <setup>
                     <module>Ffuenf_Econda</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
                 </setup>
             </ffuenf_econda_setup>
         </resources>
     </global>
     <frontend>
         <routers>
-            <econdaexport>
+            <ffuenf_econda>
                 <use>standard</use>
                 <args>
                     <module>Ffuenf_Econda</module>
-                    <frontName>econdaexport</frontName>
+                    <frontName>econda_feeds</frontName>
                 </args>
-            </econdaexport>
+            </ffuenf_econda>
         </routers>
     </frontend>
     <default>
@@ -64,6 +65,10 @@
                 <enable>1</enable>
                 <allowed_ips></allowed_ips>
             </general>
+            <products>
+                <status>1</status>
+                <typeids>simple</typeids>
+            </products>
         </ffuenf_econda>
     </default>
     <uninstall>

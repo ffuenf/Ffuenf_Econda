@@ -23,9 +23,11 @@ class Ffuenf_Econda_Model_Adminhtml_System_Config_Source_Productstatuses
      *
      * @return array
      */
-    public function toOptionArray() {
+    public function toOptionArray()
+    {
         $options = Mage::getModel('catalog/product_status')->getAllOptions();
         array_shift($options);
+        
         return $options;
     }
 }

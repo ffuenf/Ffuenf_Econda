@@ -16,15 +16,18 @@
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
-class Ffuenf_Econda_Model_Adminhtml_System_Config_Source_Productdescription
+class Ffuenf_Econda_Model_Adminhtml_System_Config_Source_Productid
 {
     /**
      * Options getter.
      *
-     * @return array
+     * @return array[]
      */
     public function toOptionArray()
     {
-        return array('short_description' => Mage::helper('ffuenf_econda')->__('Short Description'), 'description' => Mage::helper('ffuenf_econda')->__('Description'));
+        return array(
+            array('value' => '0', 'label' => Mage::helper('ffuenf_econda')->__('Magento Product ID')),
+            array('value' => '1', 'label' => Mage::helper('ffuenf_econda')->__('SKU'))
+        );
     }
 }

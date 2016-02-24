@@ -19,7 +19,7 @@
 class Ffuenf_Econda_Model_Adminhtml_System_Config_Source_Producttypes
 {
     /**
-     * Options getter. Styling options
+     * Options getter.
      *
      * @return array
      */
@@ -27,6 +27,7 @@ class Ffuenf_Econda_Model_Adminhtml_System_Config_Source_Producttypes
     {
         $options = Mage::getModel('catalog/product_type')->getAllOptions();
         array_shift($options);
+        
         return $options;
     }
 }

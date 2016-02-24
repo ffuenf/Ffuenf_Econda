@@ -16,15 +16,22 @@
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
-class Ffuenf_Econda_Model_Adminhtml_System_Config_Source_Productdescription
+class Ffuenf_Econda_StoresController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Options getter.
-     *
-     * @return array
+     * @return string
      */
-    public function toOptionArray()
+    protected function _getStoresCsv()
     {
-        return array('short_description' => Mage::helper('ffuenf_econda')->__('Short Description'), 'description' => Mage::helper('ffuenf_econda')->__('Description'));
+        return Mage::getModel('ffuenf_econda/feeds_econda_recommendations_stores')->getStoresCsv();
+    }
+
+    public function indexAction()
+    {
+        $storeId = Mage::app()->getStore();
+        if (!Mage::getSingleton('ffuenf_econda/feeds')->isAllowedIp($storeId)) {
+            return;
+        }
+        echo $this->_getStoresCsv();
     }
 }
