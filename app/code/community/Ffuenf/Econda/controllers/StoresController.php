@@ -28,16 +28,8 @@ class Ffuenf_Econda_StoresController extends Mage_Core_Controller_Front_Action
 
     public function indexAction()
     {
-        $storeId = $_GET['store'];
-        $actStore = null;
-        $stores = Mage::app()->getStores();
-        foreach ($stores as $store => $val) {
-            $storeIdShop = Mage::app()->getStore($store)->getId();
-            if ($storeIdShop == $storeId) {
-                $actStore = $storeId;
-            }
-        }
-        if (!Mage::getSingleton('ffuenf_econda/feeds')->isAllowedIp($storeId) || $actStore == null) {
+        $storeId = Mage::app()->getStore();
+        if (!Mage::getSingleton('ffuenf_econda/feeds')->isAllowedIp($storeId)) {
             return;
         }
         echo $this->_getStoresCsv();

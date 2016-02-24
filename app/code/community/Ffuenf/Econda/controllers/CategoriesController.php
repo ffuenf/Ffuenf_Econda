@@ -28,7 +28,7 @@ class Ffuenf_Econda_CategoriesController extends Mage_Core_Controller_Front_Acti
 
     public function indexAction()
     {
-        $storeId = $_GET['store'];
+        $storeId = $this->getRequest()->getParam('store');
         $actStore = null;
         $stores = Mage::app()->getStores();
         foreach ($stores as $store => $val) {
