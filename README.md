@@ -24,6 +24,15 @@ This extension provides more options to the official [econda Cross Sell Extensio
 * configurable product id type (ID or SKU)
 * configurable description type (short_description or description)
 * configurable product attributes (possibility to load attribute values of associated parent products)
+* exclude specific categories entirely
+
+The extension exposes the following Endpoints to fetch the generated feeds:
+
+* `/econda_feeds/stores` (returns a stores.csv as text/csv)
+* `/econda_feeds/products?store=1` (returns a products.csv as text/csv)
+* `/econda_feeds/categories?store=1` (returns a categories.csv as text/csv)
+
+*The path `/econda_feeds` should be protected by .htaccess*
 
 Platform
 --------

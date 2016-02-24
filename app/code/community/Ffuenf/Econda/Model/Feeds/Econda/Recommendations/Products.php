@@ -16,46 +16,8 @@
  * @license    http://opensource.org/licenses/mit-license.php MIT License
  */
 
-class Ffuenf_Econda_Model_Export
+class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_Econda_Model_Feeds
 {
-    const XML_PATH_EXTENSION_RESTRICTBYIP                   = 'ffuenf_econda/general/restrictbyip';
-    const XML_PATH_EXTENSION_ALLOWEDIPS                     = 'ffuenf_econda/general/allowed_ips';
-    const XML_PATH_EXTENSION_PRODUCTS_STATUS                = 'ffuenf_econda/products/status';
-    const XML_PATH_EXTENSION_PRODUCTS_TYPEIDS               = 'ffuenf_econda/products/typeids';
-    const XML_PATH_EXTENSION_PRODUCTS_ID_TYPE               = 'ffuenf_econda/products/id_type';
-    const XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_TYPE      = 'ffuenf_econda/products/description_type';
-    const XML_PATH_EXTENSION_PRODUCTS_NAME_USEPARENT        = 'ffuenf_econda/products/name_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_USEPARENT = 'ffuenf_econda/products/description_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_URL_USEPARENT         = 'ffuenf_econda/products/url_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_IMAGE_USEPARENT       = 'ffuenf_econda/products/image_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_PRICE_USEPARENT       = 'ffuenf_econda/products/price_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_PRICEOLD_USEPARENT    = 'ffuenf_econda/products/priceold_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_NEW_USEPARENT         = 'ffuenf_econda/products/new_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_STOCK_USEPARENT       = 'ffuenf_econda/products/stock_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_SKU_USEPARENT         = 'ffuenf_econda/products/sku_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_BRAND_USEPARENT       = 'ffuenf_econda/products/brand_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_CATEGORIES_USEPARENT  = 'ffuenf_econda/products/categories_useparent';
-    const XML_PATH_EXTENSION_CATEGORIES_STATUS              = 'ffuenf_econda/categories/status';
-    const PRODUCTS_EXPORT_FILE                              = 'products.csv';
-    const CATEGORIES_EXPORT_FILE                            = 'categories.csv';
-    const STORES_EXPORT_FILE                                = 'stores.csv';
-    const EXPORT_SEPARATOR                                  = '|';
-    const CATEGORIES_SEPARATOR                              = '^^';
-
-    /**
-     * @return boolean
-     */
-    public function isAllowedIp($storeId)
-    {
-        if (!Mage::getStoreConfig(self::XML_PATH_EXTENSION_RESTRICTBYIP, $storeId)) {
-            return true;
-        }
-        $allowedIps = explode(',', Mage::getStoreConfig(self::XML_PATH_EXTENSION_ALLOWEDIPS, $storeId));
-        $remoteAddr = Mage::helper('core/http')->getRemoteAddr(false);
-        
-        return in_array($remoteAddr, $allowedIps) ? true : false;
-    }
-
     /**
      * @return null|string
      */
@@ -114,87 +76,10 @@ class Ffuenf_Econda_Model_Export
     /**
      * @return null|string
      */
-    public function getCategoriesCsv($store)
-    {
-        if (!Mage::helper('ffuenf_econda')->isExtensionActive()) {
-            return;
-        }
-        $storeId = $store;
-        $catRoot = Mage::app()->getStore()->getRootCategoryId();
-        $collection = Mage::getModel('catalog/category')
-                      ->getCollection()
-                      ->addAttributeToSelect('id')
-                      ->setStoreId($storeId);
-        if (Mage::getStoreConfig(self::XML_PATH_EXTENSION_CATEGORIES_STATUS, $store)) {
-            $collection->addIsActiveFilter();
-        }
-        $catIds = $collection->getAllIds();
-        $cat = Mage::getModel('catalog/category');
-        $csv = "ID|ParentID|Name\n";
-        foreach ($catIds as $catId) {
-            $category = $cat->load($catId);
-            if ($category->getLevel() != 0) {
-                $catPath = explode('/', $category->getPath());
-                $catParent = $catPath[sizeof($catPath) - 2];
-                if ($catParent != '' || $category->getId() == $catRoot) {
-                    $csv .= $category->getId() . self::EXPORT_SEPARATOR;
-                    if ($category->getId() == $catRoot) {
-                        $csv .= "" . self::EXPORT_SEPARATOR;
-                    } else {
-                        $csv .= $catParent . self::EXPORT_SEPARATOR;
-                    }
-                    $csv .= trim($category->getName()) . "\n";
-                }
-            }
-        }
-        $categoriesCsv = trim($csv);
-        header("Content-Type: text/csv");
-        header("Content-Disposition: attachment; filename=" . self::CATEGORIES_EXPORT_FILE);
-        header("Content-Description: categories csv export");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-        
-        return $categoriesCsv;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getStoresCsv()
-    {
-        if (!Mage::helper('ffuenf_econda')->isExtensionActive()) {
-            return;
-        }
-        $csv = "ID|Name|Code|isActive|homeUrl\n";
-        $allStores = Mage::app()->getStores();
-        foreach ($allStores as $eachStoreId => $val) {
-            $storeCode = Mage::app()->getStore($eachStoreId)->getCode();
-            $storeName = Mage::app()->getStore($eachStoreId)->getName();
-            $storeId = Mage::app()->getStore($eachStoreId)->getId();
-            $storeActiv = Mage::app()->getStore($eachStoreId)->getIsActive();
-            $storeUrl = Mage::app()->getStore($eachStoreId)->getBaseUrl();
-            $csv .= $storeId . self::EXPORT_SEPARATOR;
-            $csv .= $storeName . self::EXPORT_SEPARATOR;
-            $csv .= $storeCode . self::EXPORT_SEPARATOR;
-            $csv .= $storeActiv . self::EXPORT_SEPARATOR;
-            $csv .= $storeUrl . self::EXPORT_SEPARATOR;
-            $csv .= "\n";
-        }
-        header("Content-Type: text/csv");
-        header("Content-Disposition: attachment; filename=" . self::STORES_EXPORT_FILE);
-        header("Content-Description: stores csv export");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-        
-        return $csv;
-    }
-
-    /**
-     * @return null|string
-     */
     protected function _getProductCsv($product, $store)
     {
         $parentIds = Mage::getResourceSingleton('catalog/product_type_configurable')->getParentIdsByChild($product->getId());
+        $statuses = explode(',', Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_STATUS, $store));
         if (isset($parentIds[0])) {
             $parentProduct = Mage::getModel('catalog/product')->load(
                 $parentIds[0], array(
@@ -211,7 +96,7 @@ class Ffuenf_Econda_Model_Export
                     'status'
                 )
             );
-            if ($parentProduct->getStatus() != self::XML_PATH_EXTENSION_PRODUCTS_STATUS) {
+            if (!in_array($parentProduct->getStatus(), $statuses)) {
                 return;
             }
         } else {
@@ -250,18 +135,17 @@ class Ffuenf_Econda_Model_Export
      */
     protected function _getProductCategoriesCsv($product, $store)
     {
+        $categories = Mage::getModel('catalog/category');
         $categoryIds = $product->getCategoryIds();
         $csv = "";
-        foreach ($categoryIds as $categoryId) {
-            $_category = Mage::getModel('catalog/category')
-                         ->load($categoryId)
-                         ->addAttributeToSelect(array('id', 'is_active'))
-                         ->setStoreId($store);
-            if (!Mage::getStoreConfig(self::XML_PATH_EXTENSION_CATEGORIES_STATUS, $store)) {
-                $csv .= self::CATEGORIES_SEPARATOR . $categoryId;
-            } else if ($_category->getIsActive()) {
-                $csv .= self::CATEGORIES_SEPARATOR . $categoryId;
-            }
+        
+        $catIds = Mage::getResourceModel('catalog/category_collection')
+                  ->addAttributeToSelect(array('entity_id'))
+                  ->addAttributeToFilter('entity_id', array('in' => $categoryIds))
+                  ->addAttributeToFilter('ffuenf_econda_feed', array('eq' => 1))
+                  ->setStoreId($store);
+        foreach ($catIds as $catId) {
+            $csv .= self::CATEGORIES_SEPARATOR . $catId->getId();
         }
         
         return substr($csv, 2);
