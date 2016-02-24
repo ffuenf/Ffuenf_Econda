@@ -39,7 +39,7 @@ Platform
 
 The following versions are supported and tested:
 
-* Magento Community Edition 1.9.2.3
+* Magento Community Edition 1.9.2.4
 * Magento Community Edition 1.9.1.1
 * Magento Community Edition 1.8.1.0
 * Magento Community Edition 1.7.0.2
