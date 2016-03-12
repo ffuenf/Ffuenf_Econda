@@ -50,10 +50,10 @@ Other versions are assumed to work.
 Requirements
 ------------
 
-|                                                                     | PHP 5.4        | PHP 5.5           | PHP 5.6           | PHP 7.0           |
-| ------------------------------------------------------------------- | -------------- | ----------------- | ----------------- | ----------------- |
-| [EOL](https://secure.php.net/supported-versions.php) / STABLE / RC  | EOL            | STABLE            | **STABLE**        | **STABLE**        |
-| automated tests on [travis]                                         | allow failure  | **required pass** | **required pass** | **required pass** |
+|                                                                     | PHP 5.5           | PHP 5.6           | PHP 7.0           |
+| ------------------------------------------------------------------- | ----------------- | ----------------- | ----------------- |
+| [EOL](https://secure.php.net/supported-versions.php) / STABLE / RC  | STABLE            | **STABLE**        | **STABLE**        |
+| automated tests on [travis]                                         | **required pass** | **required pass** | **required pass** |
 
 Magento Community Edition officially supports PHP 5.4 and PHP 5.5.
 
@@ -102,11 +102,6 @@ Development
 4. Make your changes/patches/fixes, committing appropriately
 5. Push your changes to GitHub
 6. Open a Pull Request
-
-Testing
--------
-This extension comes with a minimum setup of unit tests which are the base for the [travis] build status.
-See app/code/local/<Namespace>/<Extension>/Test for more information.
 
 License and Author
 ------------------
