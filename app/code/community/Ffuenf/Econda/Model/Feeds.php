@@ -32,7 +32,7 @@ class Ffuenf_Econda_Model_Feeds
     const XML_PATH_EXTENSION_PRODUCTS_PRICEOLD_USEPARENT    = 'ffuenf_econda/products/priceold_useparent';
     const XML_PATH_EXTENSION_PRODUCTS_NEW_USEPARENT         = 'ffuenf_econda/products/new_useparent';
     const XML_PATH_EXTENSION_PRODUCTS_STOCK_USEPARENT       = 'ffuenf_econda/products/stock_useparent';
-    const XML_PATH_EXTENSION_PRODUCTS_SKU_USEPARENT         = 'ffuenf_econda/products/sku_useparent';
+    const XML_PATH_EXTENSION_PRODUCTS_EAN_USEPARENT         = 'ffuenf_econda/products/ean_useparent';
     const XML_PATH_EXTENSION_PRODUCTS_BRAND_USEPARENT       = 'ffuenf_econda/products/brand_useparent';
     const XML_PATH_EXTENSION_PRODUCTS_CATEGORIES_USEPARENT  = 'ffuenf_econda/products/categories_useparent';
     const XML_PATH_EXTENSION_CATEGORIES_STATUS              = 'ffuenf_econda/categories/category_state';
