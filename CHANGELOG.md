@@ -2,10 +2,14 @@
 
 This file is used to list changes made in each version of Ffuenf_Econda.
 
-## 1.0.1 (March 17, 2016)
+## 1.0.2 (March 17, 2016)
 
 * add variant tracking by including simple and parent product ids properly
 * add sku to econdas EAN field
+
+## 1.0.1 (March 13, 2016)
+
+* update travis / MageTestStand
 
 ## 1.0.0 (February 22, 2016)
 
