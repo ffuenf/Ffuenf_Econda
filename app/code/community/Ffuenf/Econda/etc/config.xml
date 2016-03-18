@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Ffuenf_Econda>
-            <version>1.0.0</version>
+            <version>1.0.2</version>
         </Ffuenf_Econda>
     </modules>
     <global>
@@ -67,7 +67,7 @@
             </general>
             <products>
                 <status>1</status>
-                <typeids>simple</typeids>
+                <typeids>simple,configurable</typeids>
             </products>
         </ffuenf_econda>
     </default>

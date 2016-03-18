@@ -214,8 +214,8 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </stock_useparent>
-                        <sku_useparent translate="label, comment">
-                            <label><![CDATA[Use <b>SKU</b> of parent product]]></label>
+                        <ean_useparent translate="label, comment">
+                            <label><![CDATA[Use <b>EAN</b> of parent product]]></label>
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
                             <frontend_type>select</frontend_type>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -223,7 +223,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </sku_useparent>
+                        </ean_useparent>
                         <brand_useparent translate="label, comment">
                             <label><![CDATA[Use <b>Brand</b> of parent product]]></label>
                             <comment><![CDATA[Useful if your simple products generally inherit data from its configurable product.]]></comment>
