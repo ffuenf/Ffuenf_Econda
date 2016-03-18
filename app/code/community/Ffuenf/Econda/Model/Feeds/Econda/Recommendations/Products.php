@@ -36,7 +36,7 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
         foreach ($statuses as $status) {
             $products->addAttributeToFilter('status', array('eq' => $status));
         }
-        $types = explode(',', Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_TYPEIDS, $store));
+        $types = Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_TYPEIDS, $store);
         foreach ($types as $type) {
             $products->addAttributeToFilter('type_id', array('eq' => $type));
         }
