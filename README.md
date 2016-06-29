@@ -26,7 +26,8 @@ This extension provides more options to the official [econda Cross Sell Extensio
 * configurable product id type (ID or SKU)
 * configurable description type (short_description or description)
 * configurable product attributes (possibility to load attribute values of associated parent products)
-* exclude specific categories entirely
+* exclude products from specific categories entirely
+* exclude category ids from product feed
 
 The extension exposes the following Endpoints to fetch the generated feeds:
 
