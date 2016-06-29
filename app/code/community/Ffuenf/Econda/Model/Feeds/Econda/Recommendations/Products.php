@@ -36,10 +36,8 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
         foreach ($statuses as $status) {
             $products->addAttributeToFilter('status', array('eq' => $status));
         }
-        $types = Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_TYPEIDS, $store);
-        foreach ($types as $type) {
-            $products->addAttributeToFilter('type_id', array('eq' => $type));
-        }
+        $types = explode(',', Mage::getStoreConfig(self::XML_PATH_EXTENSION_PRODUCTS_TYPEIDS, $store));
+        $products->addAttributeToFilter('type_id', array('in' => $types));
         $products->addAttributeToSelect(array('id', 'parent_product_ids', 'name', 'description', 'category_ids', 'manufacturer', 'image', 'price', 'news_from_date', 'news_to_date'));
         $products->addStoreFilter($storeId);
         $csv = "ID|SKU|Name|Description|ProductURL|ImageURL|Price|OldPrice|New|Stock|EAN|Brand|ProductCategory\n";
@@ -101,10 +99,30 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
                 return;
             }
         } else {
+            if ($product->getTypeId() == 'configurable') {
+                $conf = Mage::getModel('catalog/product_type_configurable')->setProduct($product);
+                $productCollection = $conf->getUsedProductCollection()->addFilterByRequiredOptions();
+                Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($productCollection);
+                $cnt = $productCollection->count();
+                if ($cnt == 0) {
+                    return;
+                }
+            }
             $parentProduct = $product;
         }
+        if ($this->_getProductId($parentProduct, $store) == '') {
+            Ffuenf_Common_Model_Logger::logSystem(
+                array(
+                    'class'   => 'Ffuenf_Econda',
+                    'type'    => Zend_Log::DEBUG,
+                    'message' => 'There\'s a problem with product-id ' . trim($this->_getProductId($product, $store)),
+                    'details' => 'Looks like there is no corresponding configurable product'
+                )
+            );
+            return;
+        }
         $csv = trim($this->_getProductId($parentProduct, $store)) . self::EXPORT_SEPARATOR;
-        $csv .= trim($this->_getProductId($product, $store)) . self::EXPORT_SEPARATOR;
+        $csv .= (($product->getTypeId() == 'simple') ? '"' . trim($this->_getProductId($product, $store)) . '"' : '""') . self::EXPORT_SEPARATOR;
         $csv .= '"' . trim($this->_getProductName((self::XML_PATH_EXTENSION_PRODUCTS_NAME_USEPARENT ? $parentProduct : $product))) . '"' . self::EXPORT_SEPARATOR;
         $csv .= '"' . trim($this->_getProductDescription((self::XML_PATH_EXTENSION_PRODUCTS_DESCRIPTION_USEPARENT ? $parentProduct : $product), $store)) . '"' . self::EXPORT_SEPARATOR;
         if (self::XML_PATH_EXTENSION_PRODUCTS_URL_USEPARENT) {
@@ -120,7 +138,7 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
         $csv .= trim($this->_getProductPrice((self::XML_PATH_EXTENSION_PRODUCTS_PRICE_USEPARENT ? $parentProduct : $product))) . self::EXPORT_SEPARATOR;
         $csv .= trim($this->_getProductPriceOld((self::XML_PATH_EXTENSION_PRODUCTS_PRICEOLD_USEPARENT ? $parentProduct : $product))) . self::EXPORT_SEPARATOR;
         $csv .= trim($this->_getProductNew((self::XML_PATH_EXTENSION_PRODUCTS_NEW_USEPARENT ? $parentProduct : $product))) . self::EXPORT_SEPARATOR;
-        $csv .= (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct((self::XML_PATH_EXTENSION_PRODUCTS_STOCK_USEPARENT ? $parentProduct : $product))->getQty() . self::EXPORT_SEPARATOR;
+        $csv .= (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($product)->getQty() . self::EXPORT_SEPARATOR;
         if (self::XML_PATH_EXTENSION_PRODUCTS_EAN_USEPARENT) {
             $csv .= '"' . trim($parentProduct->getSku()) . '"' . self::EXPORT_SEPARATOR;
         } else {
@@ -138,10 +156,12 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
     protected function _getProductCategoriesCsv($product, $store)
     {
         $categoryIds = $product->getCategoryIds();
+        $excludedCategoryIds = explode(',', Mage::getStoreConfig(self::XML_PATH_EXTENSION_EXCLUDED_CATEGORY_IDS, $store));
         $csv = "";
         $catIds = Mage::getResourceModel('catalog/category_collection')
                   ->addAttributeToSelect(array('entity_id'))
                   ->addAttributeToFilter('entity_id', array('in' => $categoryIds))
+                  ->addAttributeToFilter('entity_id', array('nin' => $excludedCategoryIds))
                   ->addAttributeToFilter('ffuenf_econda_feed', array('eq' => 1))
                   ->setStoreId($store);
         foreach ($catIds as $catId) {
