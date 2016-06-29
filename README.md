@@ -4,11 +4,13 @@ Ffuenf_Econda
 =============
 [![GitHub tag](https://img.shields.io/github/tag/ffuenf/Ffuenf_Econda.svg)][tag]
 [![Build Status](https://img.shields.io/travis/ffuenf/Ffuenf_Econda.svg)][travis]
+[![VersionEye](https://www.versioneye.com/user/projects/5773e1a899ed29003b28122c/badge.svg)][versioneye]
 [![Code Quality](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Econda/badges/quality-score.png)][code_quality]
 [![Code Coverage](https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Econda/badges/coverage.png)][code_coverage]
 [![PayPal Donate](https://img.shields.io/badge/paypal-donate-blue.svg)][paypal_donate]
 [tag]: https://github.com/ffuenf/Ffuenf_Econda
 [travis]: https://travis-ci.org/ffuenf/Ffuenf_Econda
+[versioneye]: https://www.versioneye.com/user/projects/5773e1a899ed29003b28122c
 [code_quality]: https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Econda
 [code_coverage]: https://scrutinizer-ci.com/g/ffuenf/Ffuenf_Econda
 [paypal_donate]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J2PQS2WLT2Y8W&item_name=Magento%20Extension%3a%20Ffuenf_Econda&item_number=Ffuenf_Econda&currency_code=EUR

@@ -9,6 +9,7 @@ This file is used to list changes made in each version of Ffuenf_Econda.
 * remove stock_useparent as we always want to use the stock of simple products
 * fix inclusion of product types
 * add logging/exclude products without proper id
+* add exclusion of category-ids in product feed
 
 ## 1.0.2 (March 17, 2016)
 

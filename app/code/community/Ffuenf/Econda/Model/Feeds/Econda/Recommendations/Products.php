@@ -156,10 +156,12 @@ class Ffuenf_Econda_Model_Feeds_Econda_Recommendations_Products extends Ffuenf_E
     protected function _getProductCategoriesCsv($product, $store)
     {
         $categoryIds = $product->getCategoryIds();
+        $excludedCategoryIds = explode(',', Mage::getStoreConfig(self::XML_PATH_EXTENSION_EXCLUDED_CATEGORY_IDS, $store));
         $csv = "";
         $catIds = Mage::getResourceModel('catalog/category_collection')
                   ->addAttributeToSelect(array('entity_id'))
                   ->addAttributeToFilter('entity_id', array('in' => $categoryIds))
+                  ->addAttributeToFilter('entity_id', array('nin' => $excludedCategoryIds))
                   ->addAttributeToFilter('ffuenf_econda_feed', array('eq' => 1))
                   ->setStoreId($store);
         foreach ($catIds as $catId) {
